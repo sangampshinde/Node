@@ -532,12 +532,459 @@ and on screen of http://localhost:3000/api/courses
 
 // Handle HTTP DELETE Request
 
+// const express = require('express');
+// const Joi = require('joi'); 
+// const app = express();
 
+// app.use(express.json());
+
+// const courses = [
+//     { id: 1, name: "course1" },
+//     { id: 2, name: "course2" },
+//     { id: 3, name: "course3" }
+// ];
+
+// app.get('/', (req, res) => {
+//     res.send("Hello World");
+// });
+
+// app.get("/api/courses", (req, res) => {
+//     res.send(courses);
+// });
+
+// // POST API with proper Joi validation
+// app.post('/api/courses', (req, res) => {
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+
+//     const course = {
+//         id: courses.length + 1,
+//         name: req.body.name
+//     };
+
+//     courses.push(course);
+//     res.send(course);
+// });
+
+// // GET course by ID
+// app.get('/api/courses/:id', (req, res) => {
+//     const course = courses.find(course => course.id === parseInt(req.params.id));
+//     if (!course) return res.status(404).send("Course not found");
+//     res.send(course);
+// });
+
+
+// // PUT route update request
+// app.put('/api/courses/:id',(req,res)=>{
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+//   // update the course
+//   course.name = req.body.name;
+//   // return updated course to client
+//   res.send(course);
+
+// });
+
+// function validation(course){
+//   // validate
+//   const schema = Joi.object({
+//     name: Joi.string().min(3).required()
+//   });
+//   const { error } = schema.validate(course);
+//   return error;
+// }
+
+// // http delete request 
+// app.delete('/api/courses/:id',(req,res)=>{
+
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   // delete
+//   const index = courses.indexOf(course);
+//   courses.splice(index,1);
+  
+//   // return same course
+//   res.send(course);
+
+// });
+
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+// ========================================================================
+// ========================================================================
+// Advance Topic Express
+
+/**
+ * Middleware
+ * configuration
+ * Debugging
+ * Templating Engine
+ */
+
+// Middleware => is basically a function wich take response object either return response to client 
+// or passes control to another middleware function.
+
+// const express = require('express');
+// const Joi = require('joi'); 
+// const app = express();
+
+// app.use(express.json());// middleware function
+
+// const courses = [
+//     { id: 1, name: "course1" },
+//     { id: 2, name: "course2" },
+//     { id: 3, name: "course3" }
+// ];
+
+// app.get('/', (req, res) => {
+//     res.send("Hello World");
+// });
+
+// app.get("/api/courses", (req, res) => {
+//     res.send(courses);
+// });
+
+// // POST API with proper Joi validation
+// app.post('/api/courses', (req, res) => {
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+
+//     const course = {
+//         id: courses.length + 1,
+//         name: req.body.name
+//     };
+
+//     courses.push(course);
+//     res.send(course);
+// });
+
+// // GET course by ID
+// app.get('/api/courses/:id', (req, res) => {
+//     const course = courses.find(course => course.id === parseInt(req.params.id));
+//     if (!course) return res.status(404).send("Course not found");
+//     res.send(course);
+// });
+
+
+// // PUT route update request
+// app.put('/api/courses/:id',(req,res)=>{
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+//   // update the course
+//   course.name = req.body.name;
+//   // return updated course to client
+//   res.send(course);
+
+// });
+
+// function validation(course){
+//   // validate
+//   const schema = Joi.object({
+//     name: Joi.string().min(3).required()
+//   });
+//   const { error } = schema.validate(course);
+//   return error;
+// }
+
+// // http delete request 
+// app.delete('/api/courses/:id',(req,res)=>{
+
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   // delete
+//   const index = courses.indexOf(course);
+//   courses.splice(index,1);
+  
+//   // return same course
+//   res.send(course);
+
+// });
+
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+// ===============================================================================
+// Creating Custom Middleware to see how middleware to create a middleware
+
+// const express = require('express');
+// const Joi = require('joi'); 
+// const app = express();
+
+// app.use(express.json());
+
+// // custom middleware
+// app.use(function(req,res,next){
+//   console.log("Logging.....");
+//   next(); // it important to end req-res cycle pass control to next middleware or route 
+// });
+
+// // 
+// app.use(function(req,res,next){
+//   console.log("Authonticated.....");
+//   next();
+// })
+
+
+// const courses = [
+//     { id: 1, name: "course1" },
+//     { id: 2, name: "course2" },
+//     { id: 3, name: "course3" }
+// ];
+
+// app.get('/', (req, res) => {
+//     res.send("Hello World");
+// });
+
+// app.get("/api/courses", (req, res) => {
+//     res.send(courses);
+// });
+
+// // POST API with proper Joi validation
+// app.post('/api/courses', (req, res) => {
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+
+//     const course = {
+//         id: courses.length + 1,
+//         name: req.body.name
+//     };
+
+//     courses.push(course);
+//     res.send(course);
+// });
+
+// // GET course by ID
+// app.get('/api/courses/:id', (req, res) => {
+//     const course = courses.find(course => course.id === parseInt(req.params.id));
+//     if (!course) return res.status(404).send("Course not found");
+//     res.send(course);
+// });
+
+
+// // PUT route update request
+// app.put('/api/courses/:id',(req,res)=>{
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+//   // update the course
+//   course.name = req.body.name;
+//   // return updated course to client
+//   res.send(course);
+
+// });
+
+// function validation(course){
+//   // validate
+//   const schema = Joi.object({
+//     name: Joi.string().min(3).required()
+//   });
+//   const { error } = schema.validate(course);
+//   return error;
+// }
+
+// // http delete request 
+// app.delete('/api/courses/:id',(req,res)=>{
+
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   // delete
+//   const index = courses.indexOf(course);
+//   courses.splice(index,1);
+  
+//   // return same course
+//   res.send(course);
+
+// });
+
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+
+// ----------------------------------------------------------------------------
+
+// creating new file to use and import middleware functions
+ 
+// const express = require('express');
+// // middleware function file
+// const logger = require("./logger.js");
+// const Joi = require('joi'); 
+// const app = express();
+
+// app.use(express.json());
+
+// // custom middleware
+// app.use(logger.log);
+// app.use(logger.auth)
+
+
+// const courses = [
+//     { id: 1, name: "course1" },
+//     { id: 2, name: "course2" },
+//     { id: 3, name: "course3" }
+// ];
+
+// app.get('/', (req, res) => {
+//     res.send("Hello World");
+// });
+
+// app.get("/api/courses", (req, res) => {
+//     res.send(courses);
+// });
+
+// // POST API with proper Joi validation
+// app.post('/api/courses', (req, res) => {
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+
+//     const course = {
+//         id: courses.length + 1,
+//         name: req.body.name
+//     };
+
+//     courses.push(course);
+//     res.send(course);
+// });
+
+// // GET course by ID
+// app.get('/api/courses/:id', (req, res) => {
+//     const course = courses.find(course => course.id === parseInt(req.params.id));
+//     if (!course) return res.status(404).send("Course not found");
+//     res.send(course);
+// });
+
+
+// // PUT route update request
+// app.put('/api/courses/:id',(req,res)=>{
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   const error = validation(req.body);
+
+//   // if invalid, return 400 -Bad Request
+//   if (error) {
+//     return res.status(400).send(error.details[0].message);
+//   }
+
+//   // update the course
+//   course.name = req.body.name;
+//   // return updated course to client
+//   res.send(course);
+
+// });
+
+// function validation(course){
+//   // validate
+//   const schema = Joi.object({
+//     name: Joi.string().min(3).required()
+//   });
+//   const { error } = schema.validate(course);
+//   return error;
+// }
+
+// // http delete request 
+// app.delete('/api/courses/:id',(req,res)=>{
+
+//   // Look up the course
+//   const course = courses.find(course => course.id === parseInt(req.params.id));
+//   // if course does not exist return 404
+//   if(!course) return res.status(404).send("The course with given ID is not found")
+
+//   // delete
+//   const index = courses.indexOf(course);
+//   courses.splice(index,1);
+  
+//   // return same course
+//   res.send(course);
+
+// });
+
+// const port = process.env.PORT || 3000;
+// app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+
+// ==================================================================================
+// Built in Middleware
+// 
 const express = require('express');
+// middleware function file
+const logger = require("./logger.js");
 const Joi = require('joi'); 
 const app = express();
 
 app.use(express.json());
+app.use(express.urlencoded({extended:true})); //key=value&key=value
+app.use(express.static('public')); // we store and acess all our static files like html css js in here
+
+
+// custom middleware
+app.use(logger.log);
+app.use(logger.auth)
+
 
 const courses = [
     { id: 1, name: "course1" },
@@ -612,13 +1059,21 @@ function validation(course){
 }
 
 // http delete request 
-app.delete('api/courses/:id',(req,res)=>{
-  // look up for course
+app.delete('/api/courses/:id',(req,res)=>{
+
+  // Look up the course
+  const course = courses.find(course => course.id === parseInt(req.params.id));
+  // if course does not exist return 404
+  if(!course) return res.status(404).send("The course with given ID is not found")
+
+  // delete
+  const index = courses.indexOf(course);
+  courses.splice(index,1);
+  
+  // return same course
+  res.send(course);
 
 });
-
-
-
 
 const port = process.env.PORT || 3000;
 app.listen(port, () => console.log(`Listening on port ${port}...`));
