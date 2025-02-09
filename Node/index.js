@@ -2057,7 +2057,7 @@ const helmet = require('helmet');
 const morgan = require('morgan')
 
 // middleware function file
-const logger = require("./logger.js");
+const logger = require("./middleware/logger.js");
 const Joi = require('joi'); 
 const app = express();
 
